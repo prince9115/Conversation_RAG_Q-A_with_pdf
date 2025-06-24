@@ -24,3 +24,4 @@ langserve[all]
 tensorflow
 keras
 tf-keras
+pipdeptree
