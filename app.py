@@ -7,7 +7,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain.embeddings import HuggingFaceHubEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 # import os
@@ -17,9 +17,12 @@ from langchain_community.document_loaders import PyPDFLoader
 # os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
 # os.environ["LANGCHAIN_TRACING_V2"] = "true"
 # os.environ["LANGCHAIN_PROJECT"] = "Advanced RAG Document Q&A Chatbot"
-# os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
-st.secrets['HF_TOKEN']
-embeddings = HuggingFaceEmbeddings(model="all-MiniLM-L6-v2")
+# hf_api = os.getenv("HF_TOKEN")
+hf_api = st.secrets['HF_TOKEN']
+embeddings = HuggingFaceHubEmbeddings(
+    repo_id="sentence-transformers/all-MiniLM-L6-v2",
+    huggingfacehub_api_token=hf_api
+)
 
 api_key = st.sidebar.text_input("Enter your Groq API Key: ", type='password')
 
