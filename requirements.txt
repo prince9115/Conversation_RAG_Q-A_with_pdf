@@ -5,6 +5,7 @@ langchain_community>=0.3.26
 langchain-text-splitters
 langchain_huggingface>=0.3.0
 sentence-transformers
+langchain_groq
 faiss-cpu
 pypdf
 pymupdf
