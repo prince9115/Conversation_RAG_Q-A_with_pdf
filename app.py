@@ -16,30 +16,29 @@ import os
 # Page config
 st.set_page_config(
     page_title="Conversational RAG with PDF",
-    page_icon="📚",
     layout="wide"
 )
 
-st.title("📚 Conversational RAG with PDF Upload")
+st.title(" Conversational RAG with PDF Upload")
 
 # Sidebar for API keys and settings
-st.sidebar.title("⚙️ Configuration")
+st.sidebar.title(" Configuration")
 st.sidebar.write("Upload PDFs and chat with their content")
 
 # API Keys
-groq_api_key = st.sidebar.text_input("🔑 Enter your Groq API Key:", type='password')
-cohere_api_key = st.sidebar.text_input("🔑 Enter your Cohere API Key:", type='password')
+groq_api_key = st.sidebar.text_input(" Enter your Groq API Key:", type='password')
+cohere_api_key = st.sidebar.text_input(" Enter your Cohere API Key:", type='password')
 
 # Model settings
 if groq_api_key:
-    temperature = st.sidebar.slider("🌡️ Temperature", min_value=0.0, max_value=1.0, value=0.6)
+    temperature = st.sidebar.slider(" Temperature", min_value=0.0, max_value=1.0, value=0.6)
     model = st.sidebar.selectbox(
-        "🤖 Select Model:", 
+        " Select Model:", 
         ["llama-3.3-70b-versatile", "mixtral-8x7b-32768", "gemma2-9b-it"]
     )
 
 # Session ID
-session_id = st.text_input("🔖 Session ID", value="Session_1")
+session_id = st.text_input(" Session ID", value="Session_1")
 
 # Initialize session state
 if 'store' not in st.session_state:
@@ -134,7 +133,7 @@ if groq_api_key and cohere_api_key:
     embeddings = initialize_embeddings(cohere_api_key)
     
     if embeddings:
-        st.success("✅ Embeddings initialized successfully!")
+        st.success(" Embeddings initialized successfully!")
         
         # File upload
         uploaded_files = st.file_uploader(
@@ -146,7 +145,7 @@ if groq_api_key and cohere_api_key:
         
         if uploaded_files:
             # Process PDFs
-            with st.spinner("📚 Processing PDFs..."):
+            with st.spinner(" Processing PDFs..."):
                 documents = []
                 
                 for uploaded_file in uploaded_files:
@@ -161,9 +160,9 @@ if groq_api_key and cohere_api_key:
                         docs = loader.load()
                         documents.extend(docs)
                         
-                        st.success(f"✅ Processed: {uploaded_file.name}")
+                        st.success(f" Processed: {uploaded_file.name}")
                     except Exception as e:
-                        st.error(f"❌ Error processing {uploaded_file.name}: {str(e)}")
+                        st.error(f" Error processing {uploaded_file.name}: {str(e)}")
                     finally:
                         # Clean up temporary file
                         os.unlink(tmp_path)
@@ -191,14 +190,14 @@ if groq_api_key and cohere_api_key:
                         # Setup RAG chain
                         st.session_state.conversation_rag_chain = setup_rag_chain(llm, retriever)
                         
-                        st.success(f"✅ Vector database created with {len(splits)} chunks!")
+                        st.success(f" Vector database created with {len(splits)} chunks!")
                         
                     except Exception as e:
-                        st.error(f"❌ Error creating vector database: {str(e)}")
+                        st.error(f" Error creating vector database: {str(e)}")
         
         # Chat interface
         if st.session_state.conversation_rag_chain:
-            st.subheader("💬 Chat with your documents")
+            st.subheader(" Chat with your documents")
             
             # Display chat history
             if session_id in st.session_state.store:
@@ -219,7 +218,7 @@ if groq_api_key and cohere_api_key:
                 
                 try:
                     # Get response
-                    with st.spinner("🤔 Thinking..."):
+                    with st.spinner(" Thinking..."):
                         response = st.session_state.conversation_rag_chain.invoke(
                             {"input": user_input},
                             config={"configurable": {"session_id": session_id}}
@@ -229,13 +228,13 @@ if groq_api_key and cohere_api_key:
                     st.chat_message("assistant").write(response['answer'])
                     
                 except Exception as e:
-                    st.error(f"❌ Error getting response: {str(e)}")
+                    st.error(f" Error getting response: {str(e)}")
         
         else:
-            st.info("📤 Please upload PDF files to start chatting!")
+            st.info(" Please upload PDF files to start chatting!")
     
     else:
-        st.error("❌ Failed to initialize embeddings. Please check your Cohere API key.")
+        st.error(" Failed to initialize embeddings. Please check your Cohere API key.")
 
 else:
-    st.warning("⚠️ Please enter both Groq and Cohere API keys to continue.")
+    st.warning(" Please enter both Groq and Cohere API keys to continue.")
