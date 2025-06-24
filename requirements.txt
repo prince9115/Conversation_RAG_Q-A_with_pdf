@@ -23,3 +23,4 @@ uvicorn
 langserve[all]
 tensorflow
 keras
+tf-keras
