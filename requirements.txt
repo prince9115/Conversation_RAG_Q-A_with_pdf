@@ -14,7 +14,7 @@ sentence-transformers
 langchain_huggingface
 faiss-cpu
 langchain_chroma
-huggingface_hub
+huggingface_hub==0.11.1
 openai
 streamlit
 langchain_groq
