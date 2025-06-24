@@ -34,7 +34,7 @@ if groq_api_key:
     temperature = st.sidebar.slider(" Temperature", min_value=0.0, max_value=1.0, value=0.6)
     model = st.sidebar.selectbox(
         " Select Model:", 
-        ["llama-3.3-70b-versatile", "mixtral-8x7b-32768", "gemma2-9b-it"]
+        ["llama-3.3-70b-versatile", "mixtral-8x7b-32768", "gemma2-9b-it","mistral-saba-24b"]
     )
 
 # Session ID
