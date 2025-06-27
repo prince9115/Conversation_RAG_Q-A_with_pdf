@@ -30,7 +30,7 @@ groq_api_key = st.sidebar.text_input(" Enter your Groq API Key:", type='password
 cohere_api_key = st.sidebar.text_input(" Enter your Cohere API Key:", type='password')
 
 # Model settings
-if groq_api_key:
+if groq_api_key and cohere_api_key:
     pdf_summ = st.button(label="PDF Summarize")
     if pdf_summ:
         temperature = st.sidebar.slider(" Temperature", min_value=0.0, max_value=1.0, value=0.6)
